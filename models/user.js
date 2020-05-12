@@ -23,7 +23,6 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, "Password is required"],
     trim: true,
   },
   tokens: Array,
@@ -66,6 +65,15 @@ userSchema.methods.generateToken = async function () {
   this.tokens.push(token);
   await this.save();
   return token;
+};
+
+userSchema.statics.findOneOrCreate = async ({ name, email }) => {
+  let user = await User.findOne({ email });
+  if (!user) {
+    user = await User.create({ email, name });
+  }
+  user.token = await user.generateToken();
+  return user;
 };
 
 const User = mongoose.model("User", userSchema);
