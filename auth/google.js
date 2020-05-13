@@ -13,6 +13,6 @@ module.exports = new GoogleStrategy(
     console.log(profile);
     const { name, email } = profile._json;
     const user = await User.findOneOrCreate({ name, email });
-    cb(null, profile);
+    cb(null, user);
   }
 );

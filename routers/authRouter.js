@@ -1,5 +1,10 @@
 const router = require("express").Router();
-const { login, auth, logout } = require("../controllers/authController");
+const {
+  login,
+  auth,
+  logout,
+  logoutAll,
+} = require("../controllers/authController");
 const { loginFacebook, facebookAuth } = require("../auth/facebookHandler");
 const { loginGoogle, googleAuth } = require("../auth/googleHandler");
 const { loginGithub, githubAuth } = require("../auth/githubHandler");
@@ -18,6 +23,8 @@ router.get("/github", loginGithub);
 
 router.get("/github/authorized", githubAuth);
 
-router.post("/logout", auth, logout);
+router.get("/logout", auth, logout);
+
+router.get("/logout", auth, logoutAll);
 
 module.exports = router;
