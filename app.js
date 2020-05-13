@@ -5,6 +5,7 @@ const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const router = express.Router();
+const cors = require("cors");
 
 const passport = require("./auth/passport");
 const userRouter = require("./routers/userRouter");
@@ -24,6 +25,7 @@ mongoose
   })
   .then(() => console.log("Successfully connected to database"));
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(router);
@@ -45,6 +47,4 @@ router.route("*").all(notFound);
 
 app.use(errorController);
 
-app.listen(process.env.PORT, () =>
-  console.log("Listening to port", process.env.PORT)
-);
+module.exports = app;

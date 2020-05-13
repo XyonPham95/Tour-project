@@ -2,9 +2,6 @@ const app = require("./app");
 const https = require("https");
 const fs = require("fs");
 const path = require("path");
-const cors = require("cors");
-
-app.use(cors());
 
 const server = https.createServer(
   {
